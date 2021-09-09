@@ -16,7 +16,7 @@ class CreateLanguagesTable extends Migration
     {
         $q_createTable = "CREATE TABLE languages (
             id BIGINT NOT NULL AUTO_INCREMENT,
-            short TEXT NOT NULL,
+            short VARCHAR(2) NOT NULL,
             PRIMARY KEY(id)
         )";
 

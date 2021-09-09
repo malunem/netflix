@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Movie extends Model
 {
     use HasFactory;
+
+    //One to many relation
+    public function getLanguage(){
+        $this->belongsTo(Language::class);
+    }
 }

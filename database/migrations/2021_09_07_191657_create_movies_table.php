@@ -20,7 +20,9 @@ class CreateMoviesTable extends Migration
             title TEXT NOT NULL,
             overview TEXT NOT NULL, 
             release_date DATE,
-            PRIMARY KEY(id)
+            language_id BIGINT,
+            PRIMARY KEY(id),
+            FOREIGN KEY (language_id) REFERENCES Languages(id)
         )";
 
         DB::statement($q_createTable);

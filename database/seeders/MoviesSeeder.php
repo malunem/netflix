@@ -38,7 +38,7 @@ class MoviesSeeder extends Seeder
                     $actual = $percentage;
                 }
 
-                $completed = false;
+                static $completed = false;
 
                 if ($percentage >= 99 && $completed == false) {
                     echo "> 100% completed.\n";
@@ -51,16 +51,30 @@ class MoviesSeeder extends Seeder
                     continue;
                 }
 
-                $q_insertMovie = "INSERT INTO movies VALUES(?, ?, ?, ?)";
+                $language = '';
+
+                //if language column has an invalid value, replace it with null, else replace it with its id
+                if (DB::table('languages')->where('short', $lineValues[7])->exists()) {
+                    $results = (DB::table('languages')->select('id')->where('short', $lineValues[7])->get());
+                    
+                    $language = $results[0]->id;
+
+                } else {
+                    $language = NULL;
+                }
+
+                //add movie to table
+                $q_insertMovie = "INSERT INTO movies VALUES(?, ?, ?, ?, ?)";
 
                 DB::statement($q_insertMovie, [
                     $lineValues[5], //id
                     $lineValues[20], //title
                     $lineValues[9], //overview
                     (($lineValues[14] == '') ? NULL : $lineValues[14]), //release date
+                    $language
                 ]);
 
-                if ($index == 21){
+                if ($index >= 21){
                     break;
                 }
             }
