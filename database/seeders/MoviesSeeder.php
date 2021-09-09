@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Movie;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class MoviesSeeder extends Seeder
 {
@@ -23,20 +25,9 @@ class MoviesSeeder extends Seeder
                 static $index = 0;
 
                 if ($index == 0) {
-                    require_once 'database/migrations/login.php';
-
-                    try {
-                        $pdo = new PDO($attr, $user, $pass, $opts);
-                    } catch (PDOException $e) {
-                        throw new PDOException($e->getMessage(), (int)$e->getCode());
-                    }
                     $index++;
                     continue;
                 }
-
-                //var_dump($lineValues);   
-
-                //SQL FUNCTIONS (TEMPORARILY HERE, THEN TO MOVE ELSEWHERE)
 
                 $percentage = ($index/45575)*100;
 
@@ -54,33 +45,22 @@ class MoviesSeeder extends Seeder
                     $completed = true;
                 }
 
-                //echo "$percentage% - iterazione n°$index di 45.572 - id film: $lineValues[5]\n";
-
                 $index++;
 
                 if (Movie::find($lineValues[5]) != NULL || sizeof($lineValues) < 20) {
                     continue;
                 }
 
-
-                /* if ($index >= 19730) {
-                    var_dump($lineValues);
-                } */
-
                 $q_insertMovie = "INSERT INTO movies VALUES(?, ?, ?, ?)";
-                $stmt = $pdo->prepare($q_insertMovie);
-                $stmt->execute([
+
+                DB::statement($q_insertMovie, [
                     $lineValues[5], //id
                     $lineValues[20], //title
                     $lineValues[9], //overview
                     (($lineValues[14] == '') ? NULL : $lineValues[14]), //release date
                 ]);
 
-                //echo "completed\n\n";
-
-                //END SQL FUNCTIONS
-
-                if ($index == 11){
+                if ($index == 21){
                     break;
                 }
             }
