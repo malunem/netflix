@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300&display=swap');
+
+:root{
+	--dark: #141414;
+	--light: #e5e5e5;
+	--accent: #e50c13;
+	--hover: #b3adad;
+	--accent-font: 'Bebas Neue';
+	--main-font: 'Roboto', sans-serif;
+}
+
+*{
+	color: var(--light);
+	background-color: var(--dark);
+}
+
+body{
+	background-color: var(--dark);
+}
+
+a{
+	color: var(--light) !important;
+}
+
+a:hover{
+	color: var(--hover) !important;
+}
+
+.navbar-brand{
+	font-family: var(--logo-font);
+	color: var(--accent);
+	font-weight: bolder;
+	font-size: xx-large;
+}
+
+.btn{
+	color: var(--dark);
+	font-weight: bolder;
+	background-color: var(--light);	
+}
+
+.btn:hover{
+	color: var(--accent);
+	border: 2px solid var(--light);
+}
+
+.searchButton{
+	background-color: transparent;
+	border: 1px solid var(--light);
+	color: var(--light);
+}
+ 
+.movie-slider .slick-slide:hover {
+	cursor: pointer;
+}
+
+.you-d-like{
+	color: var(--accent);
+	text-align: center;
+	font-size: x-large;
+}
+
+.recommendations-index{
+	font-size: xx-large;
+	padding: 10%;
+}
+
+#loadMore {
+	width: 200px;
+	color: var(--light);
+	display: block;
+	text-align: center;
+	margin: 20px auto;
+	padding: 10px;
+	border-radius: 10px;
+	border: 1px solid transparent;
+	background-color: var(--accent);
+	transition: .3s;
+  }
+  #loadMore:hover {
+	border: 1px solid var(--accent);
+	text-decoration: none;
+  }
+  .noContent {
+	color: #000 !important;
+	background-color: transparent !important;
+	pointer-events: none;
+  }
