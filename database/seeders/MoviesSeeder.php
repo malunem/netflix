@@ -1,40 +1,18 @@
 <?php
 
-use App\Models\Movie;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Migrations\Migration;
+namespace Database\Seeders;
 
-class CreateMoviesTable extends Migration
+use Illuminate\Database\Seeder;
+
+class MoviesSeeder extends Seeder
 {
     /**
-     * Run the migrations.
+     * Run the database seeds.
      *
      * @return void
      */
-    public function up()
+    public function run()
     {
-        //SQL FUNCTIONS (TEMPORARILY HERE, THEN TO MOVE ELSEWHERE)
-        require_once 'database/migrations/login.php';
-
-        try {
-            $pdo = new PDO($attr, $user, $pass, $opts);
-        } catch (PDOException $e) {
-            throw new PDOException($e->getMessage(), (int)$e->getCode());
-        }
-
-        $q_createTable = "CREATE TABLE movies (
-            id BIGINT NOT NULL AUTO_INCREMENT,
-            title TEXT NOT NULL,
-            overview TEXT NOT NULL, 
-            release_date DATE,
-            PRIMARY KEY(id)
-        )";
-
-        $table = $pdo->query($q_createTable);
-
-        //END SQL FUNCTIONS
-
         //get info from file movies_metadata.csv 
         $handle = fopen("resources/movies-dataset/movies_metadata.csv", "r");
         if ($handle) {
@@ -108,21 +86,5 @@ class CreateMoviesTable extends Migration
             }
         };
         fclose($handle);
-
-
-        // DB::insert 
-        //view book page264
-
-        //at the end move this code to a seeder (view https://laravel.com/docs/8.x/seeding)
-    }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('movies');
     }
 }

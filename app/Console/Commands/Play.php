@@ -40,5 +40,6 @@ class Play extends Command
         echo "ciao\n";
 
         $this->call('migrate:fresh');
+        $this->call('db:seed');
     }
 }
