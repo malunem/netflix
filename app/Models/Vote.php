@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Vote extends Model
 {
     use HasFactory;
+
+    public function getMovie(){
+        return $this->hasOne(Movie::class);
+    }
 }

@@ -47,6 +47,7 @@ class MoviesSeeder extends Seeder
 
                 $index++;
 
+                //check if movie id exists and row has a valid lentgh
                 if (Movie::find($lineValues[5]) != NULL || sizeof($lineValues) < 20) {
                     continue;
                 }

@@ -13,4 +13,8 @@ class Movie extends Model
     public function getLanguage(){
         $this->belongsTo(Language::class);
     }
+
+    public function getVote(){
+        $this->belongsTo(Vote::class);
+    }
 }
