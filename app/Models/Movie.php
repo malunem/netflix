@@ -17,4 +17,8 @@ class Movie extends Model
     public function getVote(){
         $this->belongsTo(Vote::class);
     }
+
+    public function getImages(){
+        $this->belongsTo(Image::class);
+    }
 }

@@ -75,9 +75,9 @@ class MoviesSeeder extends Seeder
                     $language
                 ]);
 
-                if ($index >= 21){
+                /* if ($index >= 21){
                     break;
-                }
+                } */
             }
         };
         fclose($handle);
