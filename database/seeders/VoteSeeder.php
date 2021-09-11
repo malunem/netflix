@@ -25,14 +25,12 @@ class VoteSeeder extends Seeder
 
                 //check if movie id exists and row has a valid lentgh
                 if ($lineValues[5] == NULL || sizeof($lineValues) < 20) {
-                    echo "check 1 \n";
                     $index++;
                     continue;
                 }
 
                 //check if movie exist in movies table
                 if (!DB::table('movies')->where('id', $lineValues[5])->exists()) {
-                    echo "check 2: movie_id: $lineValues[5] doesn't exist \n";
                     $index++;
                     continue;
                 }
@@ -87,9 +85,9 @@ class VoteSeeder extends Seeder
                     $lineValues[5], //movie id
                 ]);
 
-                if ($index >= 21){
+                /* if ($index >= 21){
                     break;
-                }
+                } */
             }
         };
         fclose($handle);

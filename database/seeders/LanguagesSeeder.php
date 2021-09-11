@@ -72,9 +72,9 @@ class LanguagesSeeder extends Seeder
                     $languageShort, //language short
                 ]);
 
-                if ($index >= 21){
+                /* if ($index >= 21){
                     break;
-                }
+                } */
             }
         };
         fclose($handle);

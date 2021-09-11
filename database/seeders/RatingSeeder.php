@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class ImageSeeder extends Seeder
+class RatingSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,41 +14,27 @@ class ImageSeeder extends Seeder
      */
     public function run()
     {
-        //get info from file movies_metadata.csv 
-        $handle = fopen("resources/movies-dataset/movies_metadata.csv", "r");
+        //get info from file ratings.csv 
+        $handle = fopen("resources/movies-dataset/ratings.csv", "r");
         if ($handle) {
 
-            echo "Inserting data in images table: ";
+            echo "Inserting data in ratings table:";
 
             while (($lineValues = fgetcsv($handle, 0 , ",")) !== false) {
                 static $index = 0; //count iterations to calculate percentage of completion
 
-                //check if movie id exists and row has a valid lentgh
-                if ($lineValues[5] == NULL || sizeof($lineValues) < 20) {
+                //don't evaluate first row (headings)
+                if ($index == 0) {
                     $index++;
                     continue;
                 }
-
+                
+                $user_id = $lineValues[0];
+                $movie_id = $lineValues[1];
+                $rating = $lineValues[2];
+                
                 //check if movie exist in movies table
-                if (!DB::table('movies')->where('id', $lineValues[5])->exists()) {
-                    $index++;
-                    continue;
-                }
-
-                //if images object doesn't exist, go to next iteration
-                if ($lineValues[1] == NULL) {
-                    $index++;
-                    continue;
-                }
-
-                //replace single quote with double quotes to be decoded in php object
-                $object = json_decode(str_replace("'", "\"", $lineValues[1]));
-                
-                $poster_path = $object->poster_path ?? NULL;
-                $backdrop_path = $object->backdrop_path ?? NULL;
-                
-                //if neither poster or backdrop exist, go to next iteration 
-                if ($poster_path == NULL && $backdrop_path == NULL) {
+                if (!DB::table('movies')->where('id', $movie_id)->exists()) {
                     $index++;
                     continue;
                 }
@@ -56,17 +42,17 @@ class ImageSeeder extends Seeder
                 $index++;
                 
                 //add vote to table
-                $q_insertImages = "INSERT INTO images VALUES(NULL, ?, ?, ?)";
+                $q_insertImages = "INSERT INTO ratings VALUES(NULL, ?, ?, ?)";
                 
                 DB::statement($q_insertImages, [
-                    $poster_path,
-                    $backdrop_path,
-                    $lineValues[5], //movie id
+                    $user_id,
+                    $movie_id,
+                    $rating,
                 ]);
 
                 //Loading bar to be saw in bash
                 // ==========> 100% Completed.
-                $percentage = ($index/45575)*100;
+                $percentage = ($index/26024289)*100;
                 
                 static $actual = 0; //save actual percentage completion through iterations
                 
