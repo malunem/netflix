@@ -18,5 +18,4 @@ use App\Http\Controllers\MainController;
 Route::get('/', [MainController::class, 'getHomepage']);
 
 /* Movie page route */
-Route::get('/movie', [MainController::class, 'getMovie']);
-Route::get('/movie.html', [MainController::class, 'getMovie']); //temporary
+Route::get('/movie/{id}', [MainController::class, 'getMovie']);

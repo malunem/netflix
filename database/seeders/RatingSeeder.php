@@ -69,9 +69,9 @@ class RatingSeeder extends Seeder
                 }
                 //End loading bar 
                 
-                /* if ($index >= 21){
+                if ($index >= 500000){
                     break;
-                } */
+                }
             }
         };
         fclose($handle);

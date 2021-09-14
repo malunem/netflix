@@ -29,7 +29,7 @@
 		</x-slot>
 
 		<x-slot name="headermovie_calltoaction">
-			<a href="/movie"><button type="button" class="btn">Info e consigli</button></a>
+			<a href="/movie/603"><button type="button" class="btn">Info e consigli</button></a>
 		</x-slot>
 	</x-header-movie>
 

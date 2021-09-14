@@ -39,8 +39,8 @@ class Play extends Command
     {
         echo "ciao\n";
 
-        //$this->call('migrate:fresh');
-        //$this->call('db:seed');
+        /* $this->call('migrate:fresh');
+        $this->call('db:seed'); */
 
         //inserire solo le tabelle nuove 
         //...
