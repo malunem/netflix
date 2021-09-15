@@ -42,7 +42,10 @@ class Play extends Command
         /* $this->call('migrate:fresh');
         $this->call('db:seed'); */
 
-        //inserire solo le tabelle nuove 
-        //...
+        //inserire solo le tabelle nuove per i test
+        $this->call('migrate:rollback'); //rollback only last migration
+        $this->call('migrate');
+        //a mano php artisan migrate --path=database/migrations/2021_09_15_200251_create_genres_table
+        //DA FARE A MANO php artisan db:seed --class=GenreSeeder
     }
 }

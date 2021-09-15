@@ -9,11 +9,6 @@ use Illuminate\Support\Facades\DB;
 
 class LanguagesSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
         //get info from file movies_metadata.csv 

@@ -25,4 +25,8 @@ class Movie extends Model
     public function getRatings(){
         $this->belongsToMany(Image::class);
     }
+
+    public function getGenres(){
+        return $this->belongsToMany(Genre::class);
+    }
 }
