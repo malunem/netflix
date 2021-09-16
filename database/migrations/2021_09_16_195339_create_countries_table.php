@@ -5,22 +5,21 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCompaniesTable extends Migration
+class CreateCountriesTable extends Migration
 {
     public function up()
     {
-        $q_createTable = "CREATE TABLE companies (
+        $q_createTable = "CREATE TABLE country (
             id INT NOT NULL,
-            company VARCHAR(100) NOT NULL,
+            country VARCHAR(30) NOT NULL,
             PRIMARY KEY(id)
         )";
 
         DB::statement($q_createTable);
     }
-
+    
     public function down()
     {
-        Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('companies');
+        Schema::dropIfExists('countries');
     }
 }

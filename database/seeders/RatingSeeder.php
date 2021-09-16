@@ -18,7 +18,7 @@ class RatingSeeder extends Seeder
         $handle = fopen("resources/movies-dataset/ratings.csv", "r");
         if ($handle) {
 
-            echo "Inserting data in ratings table:";
+            echo "Inserting data in ratings table: ";
 
             while (($lineValues = fgetcsv($handle, 0 , ",")) !== false) {
                 static $index = 0; //count iterations to calculate percentage of completion

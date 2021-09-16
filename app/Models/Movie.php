@@ -29,4 +29,8 @@ class Movie extends Model
     public function getGenres(){
         return $this->belongsToMany(Genre::class);
     }
+
+    public function getCompanies(){
+        return $this->belongsToMany(Company::class);
+    }
 }
