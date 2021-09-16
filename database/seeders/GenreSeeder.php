@@ -22,7 +22,6 @@ class GenreSeeder extends Seeder
 
                 //Jump the first line of the csv file (it has heading not values)
                 if ($index == 0) {
-                    echo "iterazione $index check 1\n";
                     $index++;
                     continue;
                 }
@@ -38,14 +37,12 @@ class GenreSeeder extends Seeder
 
                 //check if movie id exists and row has a valid lentgh
                 if ($lineValues[5] == NULL || sizeof($lineValues) < 20) {
-                    echo "iterazione $index check 3\n";
                     $index++;
                     continue;
                 }
 
                 //check if movie exist in movies table
                 if (!DB::table('movies')->where('id', $lineValues[5])->exists()) {
-                    echo "iterazione $index check 4\n";
                     $index++;
                     continue;
                 }
@@ -89,11 +86,21 @@ class GenreSeeder extends Seeder
     
                     //if genre is already in the table, save relationship and go to next iteration
                     if (DB::table('genres')->where('id', $genre_id)->exists()) {
-                        $genre = Genre::find($genre_id);
-                        $movie = Movie::find($lineValues[5]);
+                        
+                        if (!DB::table('genre_movie')->where('genre_id', $genre_id)->where('movie_id', $lineValues[5])->exists()) {
 
-                        $movie->getGenres()->attach($genre);
-                        $genre->getMovies()->attach($movie); //insert relationship with movie id in genre_movie table
+                            echo "qui\n";
+                            echo "genre: $genre_id, movie: $lineValues[5]\n";
+
+                            $genre = Genre::find($genre_id);
+                            $movie = Movie::find($lineValues[5]);
+
+                            //$movie->getGenres()->attach($genre);
+                            //echo "- attached genre $genre to movie $movie\n";
+
+                            $genre->getMovies()->attach($movie); //insert relationship with movie id in genre_movie table
+                            echo "- attached movie $movie to genre $genre\n\n";
+                        }
     
                         //echo "iterazione $index check 6\n";
 
@@ -108,23 +115,25 @@ class GenreSeeder extends Seeder
                         $genre_name
                     ]);
 
-                    $genre = Genre::find($genre_id);
-                    $movie = Movie::find($lineValues[5]);
+                    if (!DB::table('genre_movie')->where('genre_id', $genre_id)->where('movie_id', $lineValues[5])->exists()) {
+                        echo "qua\n";
+                        echo "genre: $genre_id, movie: $lineValues[5]\n";
 
-                    $movie->getGenres()->attach($genre);
-                    $genre->getMovies()->attach($movie); //insert relationship with movie id in genre_movie table
+                        $genre = Genre::find($genre_id);
+                        $movie = Movie::find($lineValues[5]);
+
+                        //$movie->getGenres()->attach($genre);
+                        echo "- attached genre $genre to movie $movie\n";
+
+                        //$genre->getMovies()->attach($movie); //insert relationship with movie id in genre_movie table
+                        echo "- attached movie $movie to genre $genre\n\n";
+                    }
                 }
 
-               /*  if ($index >= 21){
+                /* if ($index >= 100){
                     break;
                 } */
             }
-
-            /* $genre = Genre::find($genre_id);
-            $movie = Movie::find($lineValues[5]);
-
-            $genre->getMovies()->attach($movie); //insert relationship with movie id in genre_movie table
- */
         };
         fclose($handle);
     }

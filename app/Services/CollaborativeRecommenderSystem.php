@@ -10,14 +10,12 @@ class CollaborativeRecommenderSystem{
     public function suggestMoviesFor(Movie $movie){
         $selectedMovie = $movie->id;
 
-        $suggestedMovies = "funzione incompleta\n";
-
         $usersWhoLikedIt = $this->getUsersWhoLiked($selectedMovie);
-        $otherMoviesRated = $this->getSuggestedMovies($usersWhoLikedIt, $selectedMovie);
+        $suggestedMovies = $this->getSuggestedMovies($usersWhoLikedIt, $selectedMovie);
 
         //$suggestedMovies = array_pad([], 10, 0);
 
-        return $otherMoviesRated;
+        return $suggestedMovies;
     }
 
     private function getUsersWhoLiked($movieID){

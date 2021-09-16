@@ -6,6 +6,7 @@ use App\Models\Movie;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\CollaborativeRecommenderSystem;
+use App\Services\ContentBasedRecommenderSystem;
 
 class MainController extends Controller
 {
@@ -15,11 +16,13 @@ class MainController extends Controller
     
     public function getMovie($id) {
         $movie = Movie::find($id);
-        $engine = new CollaborativeRecommenderSystem;
+        
+        $collab_engine = new CollaborativeRecommenderSystem;
+        $collab_suggestions = $collab_engine->suggestMoviesFor($movie);
 
-        $suggestions = $engine->suggestMoviesFor($movie);
-
-        dd($suggestions);
+        $content_engine = new ContentBasedRecommenderSystem;
+        $content_suggestions = $content_engine->suggestMoviesFor($movie);
+        dd($content_suggestions);
 
         return view('movie');
     }
