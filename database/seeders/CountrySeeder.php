@@ -46,15 +46,10 @@ class CountrySeeder extends Seeder
                     continue;
                 }
 
-                var_dump($countryObjects);
-
                 $wrongs = ["D'I", "e's"];
                 $rights = ["D I", "e s"];
 
                 $countryObjects = str_replace($wrongs, $rights, $countryObjects);
-
-                echo "Dopo:\n";
-                var_dump($countryObjects);
 
                 $countryObjects = json_decode(str_replace("'", "\"", $countryObjects));
 

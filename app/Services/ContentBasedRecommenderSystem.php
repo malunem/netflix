@@ -32,6 +32,16 @@ class ContentBasedRecommenderSystem {
         print_r($generi);
         $movieScores = $this->addGenresScores($genres, $movieScores);
 
+        //countries scores
+        $countries = [];
+        $paesi = [];
+        foreach ($movie->getCountries as $country) {
+            array_push($countries, $country);
+            array_push($countries, $country->country_name);
+        }
+        print_r($paesi);
+        $movieScores = $this->addCountriesScore($countries, $movieScores);
+
         //companies scores
         $companies = [];
         $compagnie = [];
@@ -79,14 +89,29 @@ class ContentBasedRecommenderSystem {
         return $movieScores;
     }
 
+    private function addCountriesScore($countries, $movieScores){
+
+        foreach ($countries as $country) {
+            foreach ($country->getMovies as $movie) {
+                if (isset($movieScores[$movie->id])) {
+                    $movieScores[$movie->id] += 1;
+                } else {
+                    $movieScores[$movie->id] = 1;
+                }
+            }
+        }
+
+        return $movieScores;
+    }
+
     private function addCompaniesScores($companies, $movieScores){
 
         foreach ($companies as $company) {
-            foreach ($company->getMovies as $company) {
-                if (isset($movieScores[$company->id])) {
-                    $movieScores[$company->id] += 1;
+            foreach ($company->getMovies as $movie) {
+                if (isset($movieScores[$movie->id])) {
+                    $movieScores[$movie->id] += 1;
                 } else {
-                    $movieScores[$company->id] = 1;
+                    $movieScores[$movie->id] = 1;
                 }
             }
         }

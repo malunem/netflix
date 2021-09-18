@@ -11,7 +11,7 @@ class CreateCompaniesTable extends Migration
     {
         $q_createTable = "CREATE TABLE companies (
             id INT NOT NULL,
-            company VARCHAR(100) NOT NULL,
+            company VARCHAR(110) NOT NULL,
             PRIMARY KEY(id)
         )";
 

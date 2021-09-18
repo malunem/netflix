@@ -23,12 +23,13 @@ class CompanySeeder extends Seeder
 
                 //Jump the first line of the csv file (it has heading not values)
                 if ($index == 0) {
+                    echo "check 1\n";
                     $index++;
                     continue;
                 }
 
                 //if company column value doesn't exist, go to next iteration
-                if (sizeof($lineValues) < 12 || !$lineValues[12] || $lineValues[12] == NULL || $lineValues[12] == "[]") {
+                if (sizeof($lineValues) < 12 || $lineValues[12] == NULL || $lineValues[12] == "[]") {
                     $index++;
                     continue;
                 }
@@ -138,11 +139,12 @@ class CompanySeeder extends Seeder
 
                 foreach ($companyObjects as $companyObject) {
                     
-                    $company_id = $companyObject->id ?? NULL;
-                    $company_name = $companyObject->name ?? NULL;
+                    $company_id = $companyObject['id'] ?? NULL;
+                    $company_name = $companyObject['name'] ?? NULL;
                     
                     //if id or name doesn't exist, go to next iteration 
                     if ($company_id == NULL || $company_name == NULL) {
+                        echo "check values\n";
                         $index++;
                         continue;
                     }
@@ -172,8 +174,12 @@ class CompanySeeder extends Seeder
     
                     //if company is already in the table, save relationship and go to next iteration
                     if (DB::table('companies')->where('id', $company_id)->exists()) {
+
+                        echo "sono qui\n";
                         
                         if (!DB::table('company_movie')->where('company_id', $company_id)->where('movie_id', $lineValues[5])->exists()) {
+
+                            echo "oplà\n";
 
                             $company = company::find($company_id);
                             $movie = Movie::find($lineValues[5]);
@@ -190,6 +196,8 @@ class CompanySeeder extends Seeder
                         $company_id,
                         $company_name
                     ]);
+
+                    echo "dovrei aver inserito dei dati..\n";
 
                     if (!DB::table('company_movie')->where('company_id', $company_id)->where('movie_id', $lineValues[5])->exists()) {
 
