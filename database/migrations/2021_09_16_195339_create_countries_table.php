@@ -9,7 +9,7 @@ class CreateCountriesTable extends Migration
 {
     public function up()
     {
-        $q_createTable = "CREATE TABLE country (
+        $q_createTable = "CREATE TABLE countries (
             id INT NOT NULL,
             country VARCHAR(30) NOT NULL,
             PRIMARY KEY(id)

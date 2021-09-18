@@ -28,7 +28,7 @@ class CompanySeeder extends Seeder
                 }
 
                 //if company column value doesn't exist, go to next iteration
-                if ($lineValues[12] == NULL) {
+                if (sizeof($lineValues) < 12 || !$lineValues[12] || $lineValues[12] == NULL || $lineValues[12] == "[]") {
                     $index++;
                     continue;
                 }
@@ -47,20 +47,23 @@ class CompanySeeder extends Seeder
                     continue;
                 }
                 
-                echo "iterazione $index\n companyobjects prima:\n";
-                var_dump($companyObjects);
+                //echo "iterazione $index\n companyobjects prima:\n";
+                //var_dump($companyObjects);
 
-                /* $companyObjects = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $companyObjects);
+                $companyObjects = preg_replace('/[\x00-\x1F\x7F]/', '', $companyObjects);
 
-                echo "\n company objects dopo preg_replace:\n";
-                var_dump($companyObjects); */
+                //echo "\n company objects dopo preg_replace:\n";
+                //var_dump($companyObjects); 
+
+                $wrongs = ["d'I", "D'P", "n' M", "r's", "l'A", "l's",
+                    
+                    "n' G", "'58", "''Babelsberg''", "\"Das Kleine Fernsehspiel\"", "l'n", "l'm", "L'i", "h't", "'N'", "O'B", "s' S", "O' S", "\"Luch\"", "I'm", "'Konrad Wolf'", "\xa0", "n's", "l'A", "d'm", '\xa0', "\"Weltfilm\"", "n' F", "We're", "\"Orlenok\"", "n' R", "O' G", "f's", "O'H", "d'H", "k'd", "d'i", "''Futurum''", "L'e", "''Berlin''", "\"Tsar\"", "s'i", "\"Kvadrat\"", "n' W", "a'a", "\"Zespoly Filmowe\"", "'n'", "N' C", "u's", "L'E", "l't", "\"F.A.F\"", "'A'", "l 'E", "n' D"];
+
+                $corrects = ["d I", "D P", "n M", "r s", "l A", "l s",
+                    
+                    "n G", "58", "Babelsberg", "Das Kleine Fernsehspiel", "l n", "l m", "L i", "h t", "N", "O B", "s S", "O S", "Luch", "I m", "Konrad Wolf", "", "n s", "l A", "d m", "", "Weltfilm", "n F", "We re", "Orlenok", "n R", "O G", "f s", "O H", "d H", "k d", "d i", "Futurm", "L e", "Berlin", "Tsar", "s i", "Kvadrat", "n W", "a a", "Zespoly Filmowe", "n", "N C", "u s", "L E", "l t", "F.A.F", "A", "l  E", "n D"];
                 
-                $companyObjects = str_replace(["d'I"], "d I", $companyObjects);
-                $companyObjects = str_replace(["D'P"], "D P", $companyObjects);
-                $companyObjects = str_replace(["n' M"], "n M", $companyObjects);
-                $companyObjects = str_replace(["r's"], "r s", $companyObjects);
-                $companyObjects = str_replace(["l'A"], "l A", $companyObjects);
-                $companyObjects = str_replace(["l's"], "l s", $companyObjects);
+                
                 $companyObjects = str_replace(["o' B"], "o B", $companyObjects);
                 $companyObjects = str_replace(["l'E"], "l E", $companyObjects);
                 $companyObjects = str_replace(["l'o"], "l o", $companyObjects);
@@ -112,24 +115,25 @@ class CompanySeeder extends Seeder
                 $companyObjects = str_replace(["\"Syrena\""], "Syrena", $companyObjects);
                 $companyObjects = str_replace(["\"Iluzjon\""], "Iluzjon", $companyObjects);
                 $companyObjects = str_replace(["i'n"], "i n", $companyObjects);
-
+                $companyObjects = str_replace(["l'O"], "l O", $companyObjects);
+                $companyObjects = str_replace($wrongs, $corrects, $companyObjects);
 
                 $companyObjects = str_replace(["'"], "\"", $companyObjects);
-                echo "\n company objects dopo str replace:\n";
-                var_dump($companyObjects);
+                //echo "\n company objects dopo str replace:\n";
+                //var_dump($companyObjects);
 
 
-                /* $companyObjects = Encoding::fixUTF8($companyObjects);
-                echo "\n company objects dopo utf8 encode:\n";
-                var_dump($companyObjects); */ 
+                $companyObjects = Encoding::fixUTF8($companyObjects);
+                //echo "\n company objects dopo utf8 encode:\n";
+                //var_dump($companyObjects); 
 
 
 
-                $companyObjects = json_decode($companyObjects);
+                $companyObjects = json_decode($companyObjects, JSON_INVALID_UTF8_IGNORE);
                 
 
-                echo "\n company objects dopo:\n";
-                var_dump($companyObjects);
+                //echo "\n company objects dopo:\n";
+                //var_dump($companyObjects);
 
 
                 foreach ($companyObjects as $companyObject) {
@@ -147,7 +151,7 @@ class CompanySeeder extends Seeder
 
                     //Loading bar to be saw in bash
                     // ==========> 100% Completed.
-                    $percentage = ($index/45430)*100;
+                    $percentage = ($index/82000)*100;
     
                     static $actual = 0; //save actual percentage completion through iterations
                     

@@ -11,28 +11,32 @@ class ContentBasedRecommenderSystem {
 
     public function suggestMoviesFor(Movie $movie){
         $selectedMovie = $movie->id;
-
-        $suggestedMovies = "funzione incompleta\n";
-        //$suggestedMovies = array_pad([], 10, 0);
-        
         $movieScores = [];
 
-        //genre
-        $genres = []; //$movie->getGenres('id'); //VEDERE SUL BROWSER COSA ESCE
+        //genres scores
+        $genres = []; 
         foreach ($movie->getGenres as $genre) {
             array_push($genres, $genre);
         }
+        $movieScores = $this->addGenresScores($genres, $movieScores);
+
+        //companies scores
+        $companies = [];
+        foreach ($movie->getCompanies as $company) {
+            array_push($companies, $company);
+        }
+        $movieScores = $this->addCompaniesScores($companies, $movieScores);
         
-        $movieScores = $this->addGenreScores($genres, $movieScores);
-        
+        //TOTAL SCORES
         arsort($movieScores);
-        $movieScores = array_slice($movieScores, 0, 10, true);
+        unset($movieScores[$selectedMovie]);
+        $suggestedMovies = array_slice($movieScores, 0, 10, true);
         
-        dd($movieScores);
-        return $movieScores;
+        dd($suggestedMovies);
+        return $suggestedMovies;
     }
 
-    private function addGenreScores($genres, $movieScores){
+    private function addGenresScores($genres, $movieScores){
 
         $movieScores = [];
 
@@ -44,7 +48,23 @@ class ContentBasedRecommenderSystem {
                     $movieScores[$movie->id] = 1;
                 }
             }
-            
+        }
+
+        return $movieScores;
+    }
+
+    private function addCompaniesScores($companies, $movieScores){
+
+        $movieScores = [];
+
+        foreach ($companies as $company) {
+            foreach ($company->getMovies as $company) {
+                if (isset($movieScores[$company->id])) {
+                    $movieScores[$company->id] += 1;
+                } else {
+                    $movieScores[$company->id] = 1;
+                }
+            }
         }
 
         return $movieScores;
