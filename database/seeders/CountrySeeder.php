@@ -95,14 +95,14 @@ class CountrySeeder extends Seeder
                     //if country is already in the table, save relationship and go to next iteration
                     if (DB::table('countries')->where('short', $country_short)->exists()) {
 
-                        $country_id = Country::find($country_short)->get('id');
+                        $country_id = Country::where('short', $country_short)->get('id');
                         
                         if (!DB::table('country_movie')->where('country_id', $country_id)->where('movie_id', $lineValues[5])->exists()) {
 
                             $country = Country::find($country_id);
                             $movie = Movie::find($lineValues[5]);
 
-                            $country->getMovies()->attach($movie); //insert relationship with movie id in country_movie table
+                            $country[0]->getMovies()->attach($movie); //insert relationship with movie id in country_movie table
                         }
 
                         continue;
@@ -116,14 +116,14 @@ class CountrySeeder extends Seeder
                         $country_name
                     ]);
 
-                    $country_id = Country::find($country_short)->get('id');
+                    $country_id = Country::where('short', $country_short)->get('id');
 
                     if (!DB::table('country_movie')->where('country_id', $country_id)->where('movie_id', $lineValues[5])->exists()) {
 
                         $country = Country::find($country_id);
                         $movie = Movie::find($lineValues[5]);
 
-                        $country->getMovies()->attach($movie); //insert relationship with movie id in country_movie table
+                        $country[0]->getMovies()->attach($movie); //insert relationship with movie id in country_movie table
                     }
                 }
 
