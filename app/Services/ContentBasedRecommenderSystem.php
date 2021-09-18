@@ -3,42 +3,68 @@
 namespace App\Services;
 
 use App\Models\Movie;
+use App\Models\Language;
 use Illuminate\Support\Facades\DB;
 
 class ContentBasedRecommenderSystem {
 
-    //features: genre, country, keywords, cast, company, language
+    //features: genres (DONE), countries (IN PROGRESS), keywords, cast, companies (IN PROGRESS), language (DONE)
 
     public function suggestMoviesFor(Movie $movie){
         $selectedMovie = $movie->id;
         $movieScores = [];
 
+        //language scores
+        $language = Language::find($movie->language_id);
+        $lingua = $language->short;
+        print_r($lingua);
+        $movieScores = $this->addLanguageScores($language, $movieScores);
+        //echo "Lingua: $language: punteggio $movieScores[$selectedMovie]\n";
+
         //genres scores
         $genres = []; 
+        $generi = [];
         foreach ($movie->getGenres as $genre) {
             array_push($genres, $genre);
+            array_push($generi, $genre->genre);
         }
+        //$quantigeneri = sizeof($genres);
+        print_r($generi);
         $movieScores = $this->addGenresScores($genres, $movieScores);
 
         //companies scores
         $companies = [];
+        $compagnie = [];
         foreach ($movie->getCompanies as $company) {
             array_push($companies, $company);
+            array_push($compagnie, $company->company);
         }
+        print_r($compagnie);
         $movieScores = $this->addCompaniesScores($companies, $movieScores);
         
         //TOTAL SCORES
         arsort($movieScores);
-        unset($movieScores[$selectedMovie]);
+        //unset($movieScores[$selectedMovie]);
         $suggestedMovies = array_slice($movieScores, 0, 10, true);
         
-        dd($suggestedMovies);
+        dd($movieScores);
         return $suggestedMovies;
     }
 
-    private function addGenresScores($genres, $movieScores){
+    private function addLanguageScores($language, $movieScores){
 
-        $movieScores = [];
+        foreach ($language->getMovies as $movie) {
+            if (isset($movieScores[$movie->id])) {
+                $movieScores[$movie->id] += 1;
+            } else {
+                $movieScores[$movie->id] = 1;
+            }
+        }
+
+        return $movieScores;
+    }
+
+    private function addGenresScores($genres, $movieScores){
 
         foreach ($genres as $genre) {
             foreach ($genre->getMovies as $movie) {
@@ -54,8 +80,6 @@ class ContentBasedRecommenderSystem {
     }
 
     private function addCompaniesScores($companies, $movieScores){
-
-        $movieScores = [];
 
         foreach ($companies as $company) {
             foreach ($company->getMovies as $company) {

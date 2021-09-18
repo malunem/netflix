@@ -33,4 +33,8 @@ class Movie extends Model
     public function getCompanies(){
         return $this->belongsToMany(Company::class);
     }
+
+    public function getCountries(){
+        return $this->belongsToMany(Country::class);
+    }
 }

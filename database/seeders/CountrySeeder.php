@@ -27,12 +27,12 @@ class CountrySeeder extends Seeder
                 }
 
                 //if country column value doesn't exist, go to next iteration
-                if ($lineValues[3] == NULL) {
+                if (sizeof($lineValues) < 13 || $lineValues[13] == NULL || $lineValues[13] == "[]") {
                     $index++;
                     continue;
                 }
                 
-                $countryObjects = $lineValues[3]; //save the country column value 
+                $countryObjects = $lineValues[13]; //save the country column value 
 
                 //check if movie id exists and row has a valid lentgh
                 if ($lineValues[5] == NULL || sizeof($lineValues) < 20) {
@@ -46,15 +46,25 @@ class CountrySeeder extends Seeder
                     continue;
                 }
 
+                var_dump($countryObjects);
+
+                $wrongs = ["D'I", "e's"];
+                $rights = ["D I", "e s"];
+
+                $countryObjects = str_replace($wrongs, $rights, $countryObjects);
+
+                echo "Dopo:\n";
+                var_dump($countryObjects);
+
                 $countryObjects = json_decode(str_replace("'", "\"", $countryObjects));
 
                 foreach ($countryObjects as $countryObject) {
                     
-                    $country_id = $countryObject->id ?? NULL;
+                    $country_short = $countryObject->iso_3166_1 ?? NULL;
                     $country_name = $countryObject->name ?? NULL;
                     
-                    //if id or name doesn't exist, go to next iteration 
-                    if ($country_id == NULL || $country_name == NULL) {
+                    //if either short or name don't exist, go to next iteration 
+                    if ($country_short == NULL && $country_name == NULL) {
                         $index++;
                         continue;
                     }
@@ -83,7 +93,9 @@ class CountrySeeder extends Seeder
                     $index++;
     
                     //if country is already in the table, save relationship and go to next iteration
-                    if (DB::table('countries')->where('id', $country_id)->exists()) {
+                    if (DB::table('countries')->where('short', $country_short)->exists()) {
+
+                        $country_id = Country::find($country_short)->get('id');
                         
                         if (!DB::table('country_movie')->where('country_id', $country_id)->where('movie_id', $lineValues[5])->exists()) {
 
@@ -97,12 +109,14 @@ class CountrySeeder extends Seeder
                     }
     
                     //if country isn't in the table yet, add it
-                    $q_insertcountry = "INSERT INTO countries VALUES(?, ?)";
+                    $q_insertcountry = "INSERT INTO countries VALUES(NULL, ?, ?)";
     
                     DB::statement($q_insertcountry, [
-                        $country_id,
+                        $country_short,
                         $country_name
                     ]);
+
+                    $country_id = Country::find($country_short)->get('id');
 
                     if (!DB::table('country_movie')->where('country_id', $country_id)->where('movie_id', $lineValues[5])->exists()) {
 

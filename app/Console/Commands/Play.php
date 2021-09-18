@@ -37,9 +37,11 @@ class Play extends Command
      */
     public function handle()
     {
-        echo "ciao\n";
+        echo "\nINITIAL APP CONFIGURATION STARTED...\n";
 
         $this->call('migrate:fresh');
         $this->call('db:seed'); 
+
+        echo "\nINITIAL APP CONFIGURATION FINISHED!\n";
     }
 }

@@ -5,22 +5,21 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCountriesTable extends Migration
+class CreateKeywordsTable extends Migration
 {
     public function up()
     {
-        $q_createTable = "CREATE TABLE countries (
-            id INT NOT NULL AUTO_INCREMENT,
-            short VARCHAR(2) NOT NULL,
-            country_name VARCHAR(30) NOT NULL,
+        $q_createTable = "CREATE TABLE keywords (
+            id INT NOT NULL,
+            keyword VARCHAR(50) NOT NULL,
             PRIMARY KEY(id)
         )";
 
         DB::statement($q_createTable);
     }
-    
+
     public function down()
     {
-        Schema::dropIfExists('countries');
+        Schema::dropIfExists('keywords');
     }
 }

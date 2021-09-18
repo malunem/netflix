@@ -5,14 +5,13 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCountriesTable extends Migration
+class CreateActorsTable extends Migration
 {
     public function up()
     {
-        $q_createTable = "CREATE TABLE countries (
-            id INT NOT NULL AUTO_INCREMENT,
-            short VARCHAR(2) NOT NULL,
-            country_name VARCHAR(30) NOT NULL,
+        $q_createTable = "CREATE TABLE actors (
+            id INT NOT NULL,
+            actor VARCHAR(50) NOT NULL,
             PRIMARY KEY(id)
         )";
 
@@ -21,6 +20,6 @@ class CreateCountriesTable extends Migration
     
     public function down()
     {
-        Schema::dropIfExists('countries');
+        Schema::dropIfExists('actors');
     }
 }
