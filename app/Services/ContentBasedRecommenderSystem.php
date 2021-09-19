@@ -37,7 +37,7 @@ class ContentBasedRecommenderSystem {
         $paesi = [];
         foreach ($movie->getCountries as $country) {
             array_push($countries, $country);
-            array_push($countries, $country->country_name);
+            array_push($paesi, $country->country_name);
         }
         print_r($paesi);
         $movieScores = $this->addCountriesScore($countries, $movieScores);
@@ -51,13 +51,24 @@ class ContentBasedRecommenderSystem {
         }
         print_r($compagnie);
         $movieScores = $this->addCompaniesScores($companies, $movieScores);
+
+        //keywords scores
+        $keywords = [];
+        $parolechiave = [];
+        foreach ($movie->getKeywords as $keyword) {
+            array_push($keywords, $keyword);
+            array_push($parolechiave, $keyword->keyword);
+        }
+        print_r($parolechiave);
+        $movieScores = $this->addKeywordsScores($keywords, $movieScores);
         
         //TOTAL SCORES
         arsort($movieScores);
-        //unset($movieScores[$selectedMovie]);
+        $maxScore = $movieScores[$selectedMovie]; //100% (use to calculate similarity %)
+        unset($movieScores[$selectedMovie]);
         $suggestedMovies = array_slice($movieScores, 0, 10, true);
         
-        dd($movieScores);
+        dd($suggestedMovies);
         return $suggestedMovies;
     }
 
@@ -108,6 +119,21 @@ class ContentBasedRecommenderSystem {
 
         foreach ($companies as $company) {
             foreach ($company->getMovies as $movie) {
+                if (isset($movieScores[$movie->id])) {
+                    $movieScores[$movie->id] += 1;
+                } else {
+                    $movieScores[$movie->id] = 1;
+                }
+            }
+        }
+
+        return $movieScores;
+    }
+
+    private function addKeywordsScores($keywords, $movieScores){
+
+        foreach ($keywords as $keyword) {
+            foreach ($keyword->getMovies as $movie) {
                 if (isset($movieScores[$movie->id])) {
                     $movieScores[$movie->id] += 1;
                 } else {

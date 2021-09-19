@@ -23,5 +23,6 @@ class DatabaseSeeder extends Seeder
         $this->call(GenreSeeder::class);
         $this->call(CompanySeeder::class);
         $this->call(CountrySeeder::class);
+        $this->call(KeywordSeeder::class);
     }
 }

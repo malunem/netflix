@@ -174,12 +174,8 @@ class CompanySeeder extends Seeder
     
                     //if company is already in the table, save relationship and go to next iteration
                     if (DB::table('companies')->where('id', $company_id)->exists()) {
-
-                        echo "sono qui\n";
                         
                         if (!DB::table('company_movie')->where('company_id', $company_id)->where('movie_id', $lineValues[5])->exists()) {
-
-                            echo "oplà\n";
 
                             $company = company::find($company_id);
                             $movie = Movie::find($lineValues[5]);
@@ -196,8 +192,6 @@ class CompanySeeder extends Seeder
                         $company_id,
                         $company_name
                     ]);
-
-                    echo "dovrei aver inserito dei dati..\n";
 
                     if (!DB::table('company_movie')->where('company_id', $company_id)->where('movie_id', $lineValues[5])->exists()) {
 

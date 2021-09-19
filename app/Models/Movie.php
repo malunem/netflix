@@ -37,4 +37,8 @@ class Movie extends Model
     public function getCountries(){
         return $this->belongsToMany(Country::class);
     }
+
+    public function getKeywords(){
+        return $this->belongsToMany(Keyword::class);
+    }
 }
