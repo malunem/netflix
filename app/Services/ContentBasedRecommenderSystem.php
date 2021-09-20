@@ -17,7 +17,7 @@ class ContentBasedRecommenderSystem {
         //language scores
         $language = Language::find($movie->language_id);
         $lingua = $language->short;
-        print_r($lingua);
+        //print_r($lingua);
         $movieScores = $this->addLanguageScores($language, $movieScores);
         //echo "Lingua: $language: punteggio $movieScores[$selectedMovie]\n";
 
@@ -29,7 +29,7 @@ class ContentBasedRecommenderSystem {
             array_push($generi, $genre->genre);
         }
         //$quantigeneri = sizeof($genres);
-        print_r($generi);
+        //print_r($generi);
         $movieScores = $this->addGenresScores($genres, $movieScores);
 
         //countries scores
@@ -39,7 +39,7 @@ class ContentBasedRecommenderSystem {
             array_push($countries, $country);
             array_push($paesi, $country->country_name);
         }
-        print_r($paesi);
+        //print_r($paesi);
         $movieScores = $this->addCountriesScore($countries, $movieScores);
 
         //companies scores
@@ -49,7 +49,7 @@ class ContentBasedRecommenderSystem {
             array_push($companies, $company);
             array_push($compagnie, $company->company);
         }
-        print_r($compagnie);
+        //print_r($compagnie);
         $movieScores = $this->addCompaniesScores($companies, $movieScores);
 
         //keywords scores
@@ -59,7 +59,7 @@ class ContentBasedRecommenderSystem {
             array_push($keywords, $keyword);
             array_push($parolechiave, $keyword->keyword);
         }
-        print_r($parolechiave);
+        //print_r($parolechiave);
         $movieScores = $this->addKeywordsScores($keywords, $movieScores);
         
         //TOTAL SCORES
@@ -67,8 +67,7 @@ class ContentBasedRecommenderSystem {
         $maxScore = $movieScores[$selectedMovie]; //100% (use to calculate similarity %)
         unset($movieScores[$selectedMovie]);
         $suggestedMovies = array_slice($movieScores, 0, 10, true);
-        
-        dd($suggestedMovies);
+        //dd($suggestedMovies);
         return $suggestedMovies;
     }
 

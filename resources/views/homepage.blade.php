@@ -5,19 +5,35 @@
 	<!-- Header movie component details-->
 	<x-header-movie>
 		<x-slot name="movie_title">
-			Toy Story
+			{{$headerMovie->title}}
 		</x-slot>
 
 		<x-slot name="movie_description">
-			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas aperiam, consectetur laborum autem deserunt, minima dolores est repellat magnam laudantium amet, nam fugit eius odit rerum corrupti id officia facilis.
+			{{$headerMovie->overview}}
 		</x-slot>
 
 		<x-slot name="movie_genres">
-			genre, genre
+			@foreach ($headerMovie->getGenres as $i=>$genre)
+				@if ($i == 0)
+					<a href="#">{{$genre->genre}}</a>
+				@elseif ($i > 2)
+					@break
+				@else
+					- <a href="#">{{$genre->genre}}</a>
+				@endif
+			@endforeach
 		</x-slot>
 
 		<x-slot name="movie_tags">
-			tag, tag
+			@foreach ($headerMovie->getKeywords as $i=>$keyword)
+				@if ($i == 0)
+					<a href="#">{{$keyword->keyword}}</a>
+				@elseif ($i > 2)
+					@break
+				@else
+					- <a href="#">{{$keyword->keyword}}</a>
+				@endif
+			@endforeach
 		</x-slot>
 
 		<x-slot name="movie_cast">
@@ -25,11 +41,15 @@
 		</x-slot>
 
 		<x-slot name="movie_year">
-			2019
+			{{$headerMovie->release_date}}
 		</x-slot>
 
 		<x-slot name="headermovie_calltoaction">
-			<a href="/movie/603"><button type="button" class="btn">Info e consigli</button></a>
+			<a href="/movie/{{$headerMovie->id}}"><button type="button" class="btn">Info e consigli</button></a>
+		</x-slot>
+
+		<x-slot name="movie_image">
+			<img src="{{$full_path}}" alt="movie poster" class="img-fluid">
 		</x-slot>
 	</x-header-movie>
 

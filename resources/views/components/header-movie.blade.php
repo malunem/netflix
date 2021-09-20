@@ -12,7 +12,7 @@
             {{$headermovie_calltoaction ?? ""}}
         </div>
         <div class="col-12 col-md-6 d-flex align-item-center justify-content-center">
-            <img src="http://image.tmdb.org/t/p/w500/9FBwqcd9IRruEDUrTdcaafOMKUq.jpg" alt="movie poster" class="img-fluid">
+            {{$movie_image}}
         </div>
     </div>
 </div>

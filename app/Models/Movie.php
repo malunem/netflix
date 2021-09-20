@@ -11,19 +11,19 @@ class Movie extends Model
 
     //One to many relation
     public function getLanguage(){
-        $this->belongsTo(Language::class);
+        return $this->belongsTo(Language::class);
     }
 
     public function getVote(){
-        $this->belongsTo(Vote::class);
+        return $this->belongsTo(Vote::class);
     }
 
     public function getImages(){
-        $this->belongsTo(Image::class);
+        return $this->belongsTo(Image::class);
     }
 
     public function getRatings(){
-        $this->belongsToMany(Image::class);
+        return $this->belongsToMany(Image::class);
     }
 
     public function getGenres(){
