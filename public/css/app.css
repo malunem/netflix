@@ -11674,3 +11674,8 @@ a:hover{
 	pointer-events: none;
   }
 
+  .img-fluid{
+	  -o-object-fit: contain;
+	     object-fit: contain;
+  }
+

@@ -1,6 +1,6 @@
 <x-html-layout>
     <x-slot name="page_title">
-        Toy Story
+        {{$movie->title ?? 'Netflix'}}
     </x-slot>
 
     <x-slot name="page_content">
@@ -8,27 +8,47 @@
     <!-- Header movie -->
     <x-header-movie>
 		<x-slot name="movie_title">
-			Toy Story
+			{{$movie->title ?? ''}}
 		</x-slot>
 
 		<x-slot name="movie_description">
-			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas aperiam, consectetur laborum autem deserunt, minima dolores est repellat magnam laudantium amet, nam fugit eius odit rerum corrupti id officia facilis.
+			{{$movie->overview ?? ''}}
 		</x-slot>
 
+        <x-slot name="movie_image">
+            <img src="{{$backdrop_path}}" alt="" class="img-fluid">
+        </x-slot>
+
 		<x-slot name="movie_genres">
-			genre, genre
+			@foreach ($movie->getGenres as $i=>$genre)
+				@if ($i == 0)
+					<a href="#">{{$genre->genre}}</a>
+				@elseif ($i > 2)
+					@break
+				@else
+					- <a href="#">{{$genre->genre}}</a>
+				@endif
+			@endforeach
 		</x-slot>
 
 		<x-slot name="movie_tags">
-			tag, tag
+			@foreach ($movie->getKeywords as $i=>$keyword)
+				@if ($i == 0)
+					<a href="#">{{$keyword->keyword}}</a>
+				@elseif ($i > 2)
+					@break
+				@else
+					- <a href="#">{{$keyword->keyword}}</a>
+				@endif
+			@endforeach
 		</x-slot>
 
-		<x-slot name="movie_cast">
+		{{-- <x-slot name="movie_cast">
 			actor, actress
-		</x-slot>
+		</x-slot> --}}
 
 		<x-slot name="movie_year">
-			2019
+			{{$movie->release_date}}
 		</x-slot>
 	</x-header-movie>
 
@@ -36,7 +56,7 @@
     <div class="container p-5 recommendations">
         <div class="row">
             <div class="col-12">
-                <h2 class="you-d-like">If you liked Toy Story, you'd like also...</h2>
+                <h2 class="you-d-like">Other users also liked...</h2>
             </div>
         </div>
 

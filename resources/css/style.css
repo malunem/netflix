@@ -86,3 +86,7 @@ a:hover{
 	background-color: transparent !important;
 	pointer-events: none;
   }
+
+  .img-fluid{
+	  object-fit: contain;
+  }

@@ -38,11 +38,11 @@ class CollaborativeRecommenderSystem{
 
     private function getSuggestedMovies($users, $id){
         $ratingObjects = DB::table('ratings')
-        ->select('movie_id', 'user_id', 'rating')
-        ->whereNotIn('movie_id', [$id])
         ->whereIn('user_id', $users)
-        ->get()
-        ->toArray();
+        ->select('movie_id', 'user_id', 'rating')
+        //->whereNotIn('movie_id', [$id])
+        ->get();
+        //->toArray();
 
         $movieScores = [];
 
