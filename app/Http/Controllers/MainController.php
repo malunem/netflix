@@ -64,10 +64,8 @@ class MainController extends Controller
 
         //create array with Movie models
         foreach ($collab_suggestions as $movie_id => $score) {
-            $collab_suggested_movie = DB::table('movies')
-                            ->leftJoin('images', 'movies.id', '=', 'images.movie_id')
-                            ->where('movies.id', $movie_id)
-                            ->first();
+            $collab_suggested_movie = Movie::find($movie_id);
+
             $collab_movies[] = $collab_suggested_movie; //append movie to array
         }
 

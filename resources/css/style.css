@@ -72,7 +72,7 @@ a:hover{
 	color: var(--accent);
 }
 
-#loadMore {
+#content_loadMore, #collab_loadMore {
 	width: 200px;
 	color: var(--light);
 	display: block;
@@ -84,7 +84,7 @@ a:hover{
 	background-color: var(--accent);
 	transition: .3s;
   }
-  #loadMore:hover {
+  #collab_loadMore:hover, #content_loadMore:hover {
 	border: 1px solid var(--accent);
 	text-decoration: none;
   }

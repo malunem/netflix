@@ -75,7 +75,7 @@ class ContentBasedRecommenderSystem {
         return $suggestedMovies;
     }
 
-    private function addLanguageScores($language, $movieScores){
+    private function addLanguageScores($language, &$movieScores){
 
         foreach ($language->getMovies as $movie) {
             if (isset($movieScores[$movie->id])) {
@@ -88,7 +88,7 @@ class ContentBasedRecommenderSystem {
         return $movieScores;
     }
 
-    private function addGenresScores($genres, $movieScores){
+    private function addGenresScores($genres, &$movieScores){
 
         foreach ($genres as $genre) {
             foreach ($genre->getMovies as $movie) {
@@ -103,7 +103,7 @@ class ContentBasedRecommenderSystem {
         return $movieScores;
     }
 
-    private function addCountriesScore($countries, $movieScores){
+    private function addCountriesScore($countries, &$movieScores){
 
         foreach ($countries as $country) {
             foreach ($country->getMovies as $movie) {
@@ -118,7 +118,7 @@ class ContentBasedRecommenderSystem {
         return $movieScores;
     }
 
-    private function addCompaniesScores($companies, $movieScores){
+    private function addCompaniesScores($companies, &$movieScores){
 
         foreach ($companies as $company) {
             foreach ($company->getMovies as $movie) {
@@ -133,7 +133,7 @@ class ContentBasedRecommenderSystem {
         return $movieScores;
     }
 
-    private function addKeywordsScores($keywords, $movieScores){
+    private function addKeywordsScores($keywords, &$movieScores){
 
         foreach ($keywords as $keyword) {
             foreach ($keyword->getMovies as $movie) {
