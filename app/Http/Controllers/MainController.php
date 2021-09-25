@@ -69,7 +69,7 @@ class MainController extends Controller
             $collab_movies[] = $collab_suggested_movie; //append movie to array
         }
 
-        ini_set('memory_limit', '1024M'); //TO-DO: FIND A WAY TO USE LESS MEMORY AND REMOVE THIS
+        //ini_set('memory_limit', '1024M'); //TO-DO: FIND A WAY TO USE LESS MEMORY AND REMOVE THIS
 
         $content_engine = new ContentBasedRecommenderSystem;
         $content_suggestions = $content_engine->suggestMoviesFor($movie);
