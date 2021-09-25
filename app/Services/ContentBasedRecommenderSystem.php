@@ -17,9 +17,8 @@ class ContentBasedRecommenderSystem {
         //language scores
         $language = Language::find($movie->language_id);
         $lingua = $language->short;
-        //print_r($lingua);
-        $movieScores = $this->addLanguageScores($language, $movieScores);
-        //echo "Lingua: $language: punteggio $movieScores[$selectedMovie]\n";
+        //$movieScores = $this->addLanguageScores($language, $movieScores);
+        $this->addLanguageScores($language, $movieScores);
 
         
         //genres scores
@@ -29,9 +28,8 @@ class ContentBasedRecommenderSystem {
             array_push($genres, $genre);
             array_push($generi, $genre->genre);
         }
-        //$quantigeneri = sizeof($genres);
-        //print_r($generi);
-        $movieScores = $this->addGenresScores($genres, $movieScores);
+        //$movieScores = $this->addGenresScores($genres, $movieScores);
+        $this->addGenresScores($genres, $movieScores);
         
         
         //countries scores
@@ -41,11 +39,9 @@ class ContentBasedRecommenderSystem {
             array_push($countries, $country);
             array_push($paesi, $country->country_name);
         }
-        //print_r($paesi);
-        $movieScores = $this->addCountriesScore($countries, $movieScores);
+        //$movieScores = $this->addCountriesScore($countries, $movieScores);
+        $this->addCountriesScore($countries, $movieScores);
         
-        //return $movieScores; //TEST
-
         //companies scores
         $companies = [];
         $compagnie = [];
@@ -53,8 +49,8 @@ class ContentBasedRecommenderSystem {
             array_push($companies, $company);
             array_push($compagnie, $company->company);
         }
-        //print_r($compagnie);
-        $movieScores = $this->addCompaniesScores($companies, $movieScores);
+        //$movieScores = $this->addCompaniesScores($companies, $movieScores);
+        $this->addCompaniesScores($companies, $movieScores);
 
         //keywords scores
         $keywords = [];
@@ -63,8 +59,8 @@ class ContentBasedRecommenderSystem {
             array_push($keywords, $keyword);
             array_push($parolechiave, $keyword->keyword);
         }
-        //print_r($parolechiave);
-        $movieScores = $this->addKeywordsScores($keywords, $movieScores);
+        //$movieScores = $this->addKeywordsScores($keywords, $movieScores);
+        $this->addKeywordsScores($keywords, $movieScores);
         
         //TOTAL SCORES
         arsort($movieScores);
@@ -85,7 +81,7 @@ class ContentBasedRecommenderSystem {
             }
         }
 
-        return $movieScores;
+        //return $movieScores;
     }
 
     private function addGenresScores($genres, &$movieScores){
@@ -100,7 +96,7 @@ class ContentBasedRecommenderSystem {
             }
         }
 
-        return $movieScores;
+        //return $movieScores;
     }
 
     private function addCountriesScore($countries, &$movieScores){
@@ -115,7 +111,7 @@ class ContentBasedRecommenderSystem {
             }
         }
 
-        return $movieScores;
+        //return $movieScores;
     }
 
     private function addCompaniesScores($companies, &$movieScores){
@@ -130,7 +126,7 @@ class ContentBasedRecommenderSystem {
             }
         }
 
-        return $movieScores;
+        //return $movieScores;
     }
 
     private function addKeywordsScores($keywords, &$movieScores){
@@ -145,6 +141,6 @@ class ContentBasedRecommenderSystem {
             }
         }
 
-        return $movieScores;
+        //return $movieScores;
     }
 }

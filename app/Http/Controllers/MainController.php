@@ -76,14 +76,6 @@ class MainController extends Controller
         $content_movies = [];
 
         //create array with Movie models
-        /* foreach ($content_suggestions as $movie_id => $score) {
-            $movies = DB::table('movies')
-                            ->leftJoin('images', 'movies.id', '=', 'images.movie_id')
-                            ->where('movies.id', $movie_id)
-                            ->first();
-            $content_movies[] = $movies; //append movie to array
-        } */
-
         foreach ($content_suggestions as $movie_id => $score) {
             $content_suggested_movie = Movie::find($movie_id);
 
