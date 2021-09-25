@@ -21,6 +21,7 @@ class ContentBasedRecommenderSystem {
         $movieScores = $this->addLanguageScores($language, $movieScores);
         //echo "Lingua: $language: punteggio $movieScores[$selectedMovie]\n";
 
+        
         //genres scores
         $genres = []; 
         $generi = [];
@@ -31,7 +32,8 @@ class ContentBasedRecommenderSystem {
         //$quantigeneri = sizeof($genres);
         //print_r($generi);
         $movieScores = $this->addGenresScores($genres, $movieScores);
-
+        
+        
         //countries scores
         $countries = [];
         $paesi = [];
@@ -41,6 +43,8 @@ class ContentBasedRecommenderSystem {
         }
         //print_r($paesi);
         $movieScores = $this->addCountriesScore($countries, $movieScores);
+        
+        //return $movieScores; //TEST
 
         //companies scores
         $companies = [];

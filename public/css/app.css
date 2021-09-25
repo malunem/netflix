@@ -11605,6 +11605,10 @@ body{
 	background-color: var(--dark);
 }
 
+.bg-dark *{
+    background-color: rgba(33, 37, 41, 1);
+  }
+
 a{
 	color: var(--light) !important;
 }
@@ -11649,7 +11653,10 @@ a:hover{
 
 .recommendations-index{
 	font-size: xx-large;
-	padding: 10%;
+	padding: 5px;
+	border-radius: 10px;
+	border: 1px solid var(--accent);
+	color: var(--accent);
 }
 
 #loadMore {

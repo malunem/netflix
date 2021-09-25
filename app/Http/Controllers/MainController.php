@@ -48,7 +48,6 @@ class MainController extends Controller
 
             
         }
-       // dd($genresRandomMovies);
 
         return view('homepage', compact('headerMovie', 'full_path', 'base_path', 'genres', 'genresRandomMovies'));
     }
@@ -59,11 +58,40 @@ class MainController extends Controller
         $backdrop_path = $this->base_path . Image::where('movie_id', $id)->first()->backdrop_path;
         
         $collab_engine = new CollaborativeRecommenderSystem;
+        //return array key value where key = movie id and value = score
         $collab_suggestions = $collab_engine->suggestMoviesFor($movie);
+        $collab_movies = [];
 
-        //$content_engine = new ContentBasedRecommenderSystem;
-        //$content_suggestions = $content_engine->suggestMoviesFor($movie);
+        //create array with Movie models
+        foreach ($collab_suggestions as $movie_id => $score) {
+            $collab_suggested_movie = DB::table('movies')
+                            ->leftJoin('images', 'movies.id', '=', 'images.movie_id')
+                            ->where('movies.id', $movie_id)
+                            ->first();
+            $collab_movies[] = $collab_suggested_movie; //append movie to array
+        }
 
-        return view('movie', compact('backdrop_path', 'movie', 'collab_suggestions')); //'collab_suggestions',  'content_suggestions'
+        ini_set('memory_limit', '1024M'); //TO-DO: FIND A WAY TO USE LESS MEMORY AND REMOVE THIS
+
+        $content_engine = new ContentBasedRecommenderSystem;
+        $content_suggestions = $content_engine->suggestMoviesFor($movie);
+        $content_movies = [];
+
+        //create array with Movie models
+        /* foreach ($content_suggestions as $movie_id => $score) {
+            $movies = DB::table('movies')
+                            ->leftJoin('images', 'movies.id', '=', 'images.movie_id')
+                            ->where('movies.id', $movie_id)
+                            ->first();
+            $content_movies[] = $movies; //append movie to array
+        } */
+
+        foreach ($content_suggestions as $movie_id => $score) {
+            $content_suggested_movie = Movie::find($movie_id);
+
+            $content_movies[] = $content_suggested_movie; //append movie to array
+        }
+
+        return view('movie', compact('base_path', 'backdrop_path', 'movie', 'collab_suggestions', 'collab_movies', 'content_suggestions', 'content_movies')); 
     }
 }
