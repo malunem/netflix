@@ -69,7 +69,8 @@ class MainController extends Controller
             $collab_movies[] = $collab_suggested_movie; //append movie to array
         }
 
-        //ini_set('memory_limit', '1024M'); //TO-DO: FIND A WAY TO USE LESS MEMORY AND REMOVE THIS
+        ini_set('memory_limit', '1024M'); //TO-DO: FIND A WAY TO USE LESS MEMORY AND REMOVE THIS
+        ini_set('max_execution_time', 120);
 
         $content_engine = new ContentBasedRecommenderSystem;
         $content_suggestions = $content_engine->suggestMoviesFor($movie);
@@ -82,6 +83,6 @@ class MainController extends Controller
             $content_movies[] = $content_suggested_movie; //append movie to array
         }
 
-        return view('movie', compact('base_path', 'backdrop_path', 'movie', 'collab_suggestions', 'collab_movies', 'content_suggestions', 'content_movies')); 
+        return view('movie', compact('base_path', 'backdrop_path', 'movie', 'collab_suggestions', 'collab_movies', 'content_suggestions', 'content_movies'));
     }
 }

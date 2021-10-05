@@ -16,17 +16,14 @@ class ContentBasedRecommenderSystem {
 
         //language scores
         $language = Language::find($movie->language_id);
-        $lingua = $language->short;
         //$movieScores = $this->addLanguageScores($language, $movieScores);
         $this->addLanguageScores($language, $movieScores);
 
         
         //genres scores
         $genres = []; 
-        $generi = [];
         foreach ($movie->getGenres as $genre) {
             array_push($genres, $genre);
-            array_push($generi, $genre->genre);
         }
         //$movieScores = $this->addGenresScores($genres, $movieScores);
         $this->addGenresScores($genres, $movieScores);
@@ -34,30 +31,24 @@ class ContentBasedRecommenderSystem {
         
         //countries scores
         $countries = [];
-        $paesi = [];
         foreach ($movie->getCountries as $country) {
             array_push($countries, $country);
-            array_push($paesi, $country->country_name);
         }
         //$movieScores = $this->addCountriesScore($countries, $movieScores);
         $this->addCountriesScore($countries, $movieScores);
         
         //companies scores
         $companies = [];
-        $compagnie = [];
         foreach ($movie->getCompanies as $company) {
             array_push($companies, $company);
-            array_push($compagnie, $company->company);
         }
         //$movieScores = $this->addCompaniesScores($companies, $movieScores);
         $this->addCompaniesScores($companies, $movieScores);
 
         //keywords scores
         $keywords = [];
-        $parolechiave = [];
         foreach ($movie->getKeywords as $keyword) {
             array_push($keywords, $keyword);
-            array_push($parolechiave, $keyword->keyword);
         }
         //$movieScores = $this->addKeywordsScores($keywords, $movieScores);
         $this->addKeywordsScores($keywords, $movieScores);
@@ -67,7 +58,6 @@ class ContentBasedRecommenderSystem {
         $maxScore = $movieScores[$selectedMovie]; //100% (use to calculate similarity %)
         unset($movieScores[$selectedMovie]);
         $suggestedMovies = array_slice($movieScores, 0, 10, true);
-        //dd($suggestedMovies);
         return $suggestedMovies;
     }
 
