@@ -45,7 +45,7 @@
 		</x-slot>
 
 		<x-slot name="headermovie_calltoaction">
-			<a href="/movie/{{$headerMovie->id}}"><button type="button" class="btn">Info e consigli</button></a>
+			<a href="/movie/{{$headerMovie->id}}"><button type="button" class="btn">More info</button></a>
 		</x-slot>
 
 		<x-slot name="movie_image">

@@ -55,7 +55,11 @@ class MainController extends Controller
     public function getMovie($id) {
         $movie = Movie::find($id);
         $base_path = $this->base_path;
-        $backdrop_path = $this->base_path . Image::where('movie_id', $id)->first()->backdrop_path;
+        if (Image::where('movie_id', $id)->exists()) {
+            $backdrop_path = $this->base_path . Image::where('movie_id', $id)->first()->backdrop_path;
+        } else {
+            $backdrop_path = "/images/movie_graphic.png";
+        }
         
         $collab_engine = new CollaborativeRecommenderSystem;
         //return array key value where key = movie id and value = score

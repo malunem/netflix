@@ -57,7 +57,7 @@
     <div class="container-fluid recommendations mt-5">
         <div class="row">
             <div class="col-12">
-                <h2 class="you-d-like">Similar movies...</h2>
+                <h2 class="you-d-like text-white">Similar movies...</h2>
             </div>
         </div>
         
@@ -132,7 +132,7 @@
     <div class="container-fluid recommendations mt-5">
         <div class="row">
             <div class="col-12">
-                <h2 class="you-d-like">Users also liked...</h2>
+                <h2 class="you-d-like text-white">Users also liked...</h2>
             </div>
         </div>
         

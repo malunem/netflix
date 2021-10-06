@@ -20,8 +20,8 @@
             <p class="bg-dark">{{$movie_description}}</p>
             <p><strong>Genres: </strong>{{$movie_genres}}</p>
             <p><strong>Tags: </strong>{{$movie_tags}}</p>
-            <p><strong>Cast: </strong>{{$movie_cast}}</p>
-            <p><strong>Year: </strong>{{$movie_year}}</p>
+            {{-- <p><strong>Cast: </strong>{{$movie_cast}}</p> --}}
+            <p><strong>Released: </strong>{{$movie_year}}</p>
             <a href="/movie/{{$movie_id}}">
                 <button class="btn btn-outline-light" type="button">More info</button>
             </a>

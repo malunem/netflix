@@ -8,9 +8,9 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a class="nav-link" href="/">Home</a>
+                {{-- <a class="nav-link" href="#">Categoria</a>
                 <a class="nav-link" href="#">Categoria</a>
-                <a class="nav-link" href="#">Categoria</a>
-                <a class="nav-link" href="#">Categoria</a>
+                <a class="nav-link" href="#">Categoria</a> --}}
             </div>
             <form class="d-flex ms-auto">
                 <input class="form-control me-2" type="search" placeholder="Titles, cast, genres..." aria-label="Search">

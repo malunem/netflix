@@ -55,6 +55,7 @@ class CollaborativeRecommenderSystem{
         }
 
         arsort($movieScores);
+        unset($movieScores[$id]);
         $movieScores = array_slice($movieScores, 0, 10, true);
 
         return $movieScores;
