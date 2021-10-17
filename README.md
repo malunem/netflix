@@ -1,64 +1,31 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+<p align="center"><img src="https://user-images.githubusercontent.com/63505124/136289801-1d609d46-2986-4908-9476-bb29e0f0aab1.png" width="600"></p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Introduction
 
-## About Laravel
+I started working at this project in my free time during a three months full-stack web development coding bootcamp, because I wanted to challenge myself on a complex back-end project with a real-world and large dataset. Since I’m fascinated by recommender systems (and A.I. in general), I chose to simulate their behaviour with the tools I have “here and now”: PHP and relational databases.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+NB: In the future I’m willing to build a real recommender system with appropriate technologies like python and machine learning, but for the sake of practice I had to start somewhere.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Fun fact: this is the second time I try to implement this idea. The first one was for the Computer Organization and Design exam, for which I had to deliver an individual project using only logic gates in Logisim (that project got me a 30+/30 grade).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Overview
 
-## Learning Laravel
+The projects consists in a website similar to Netflix, with a homepage, a movie page and movies recommendations (both collaborative and content-based). All 45k movies available are real and they belong to this Kaggle dataset, which includes movie titles, descriptions, release dates, posters, backdrops, genres, languages, tags, production companies, production countries, user ratings, credits (cast and crew) and more.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+The homepage shows a header movie and some information about it. The header movie isn’t hardcoded, but rather it’s chosen at every page-load by a random function, then it changes every time the page is reloaded.
+Similarly, the 20 categories available are random ordered and in every category carousel there are 10 random selected movies (belonging to the specific category).
+<i>Yep, I quite like random functions :-)</i>
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+![Netflix homepage](https://user-images.githubusercontent.com/63505124/136290134-2abcbdad-5fd3-4cad-ba7d-716bd85ae1c9.png)
 
-## Laravel Sponsors
+Clicking a movie opens a page with movie details and two movie recommendation sections: “similar movies” and “other users also liked”. Every section contains the top 10 recommendations and has a “load more” button that shows 2 more movies at a time.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+The “similar movies” are the output of the content-based recommender function, that combines a few queries and calculations to find what movies have more common features with the one selected by the user (genres, original language, keywords, production companies, production countries).
 
-### Premium Partners
+On the other side, “other users also liked” movies are the output of the collaborative recommender function, that first finds users who really liked the selected movie (those who rated it 5/5) and then calculates the 10 movies most well rated by them on average. 
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[CMS Max](https://www.cmsmax.com/)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
+![Netflix movie page](https://user-images.githubusercontent.com/63505124/136290222-4087f1a1-8649-42d6-871a-3713b7303e08.png)
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+<i>[...FULL DOCUMENTATION IN PROGRESS...]</i>
