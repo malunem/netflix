@@ -20,10 +20,7 @@ class KeywordSeeder extends Seeder
             
             while (($lineValues = fgetcsv($handle, 0 , ",")) !== false) {
                 static $index = 0; //count iterations to calculate percentage of completion
-                
-                echo "\n\n\n$index\n";
-                var_dump($lineValues);
-                
+                                
                 //Jump the first line of the csv file (it has heading not values)
                 if ($index == 0) {
                     $index++;
@@ -120,30 +117,18 @@ class KeywordSeeder extends Seeder
 
                 $keywordObjects = str_replace($wrongs, $rights, $keywordObjects);
 
-                echo "\n dopo sostituzioni\n";
-                var_dump($keywordObjects);
 
                 $keywordObjects = Encoding::fixUTF8($keywordObjects);
-                echo "\n company objects dopo utf8 encode:\n";
-                var_dump($keywordObjects); 
 
 
                 $keywordObjects = json_decode(str_replace("'", "\"", $keywordObjects));
 
-                echo "\n dopo json decode\n";
-                var_dump($keywordObjects);
 
                 foreach ($keywordObjects as $keywordObject) {
-
-                    echo "foreach keyword object\n";
-                    var_dump($keywordObject);
                     
                     $keyword_id = $keywordObject->id ?? NULL;
                     $keyword_name = $keywordObject->name ?? NULL;
                     
-                    echo "values:\n";
-                    var_dump($keyword_id, $keyword_name);
-
                     //if either id or name don't exist, go to next iteration 
                     if ($keyword_id == NULL || $keyword_name == NULL) {
                         $index++;
@@ -186,7 +171,6 @@ class KeywordSeeder extends Seeder
 
                             $keyword->getMovies()->attach($movie); //insert relationship with movie id in keyword_movie table
 
-                            echo "\ninserito\n";
                         }
 
                         continue;
@@ -207,12 +191,8 @@ class KeywordSeeder extends Seeder
                         $keyword = Keyword::find($keyword_id);
                         $movie = Movie::find($lineValues[0]);
 
-                        var_dump($keyword);
-                        echo "qua\n";
-
                         $keyword->getMovies()->attach($movie); //insert relationship with movie id in keyword_movie table
 
-                        echo "inserito\n";
                     }
                 }
 
