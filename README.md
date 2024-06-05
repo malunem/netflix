@@ -28,4 +28,4 @@ On the other side, “other users also liked” movies are the output of the col
 
 
 
-<i>[ FULL DOCUMENTATION TEMPORARY AVAILABLE HERE: https://www.linkedin.com/pulse/how-i-built-movie-recommender-from-scratch-laravel-after-malune/ ]</i>
+<i>\[ [FULL ARTICLE AVAILABLE ON MEDIUM](https://medium.com/@malunem/how-i-built-a-movie-recommender-from-scratch-in-laravel-after-a-3-months-coding-bootcamp-d0db9de657ca) \]</i>
