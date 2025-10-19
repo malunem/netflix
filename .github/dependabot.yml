@@ -1,5 +1,5 @@
 # Dependabot configuration for automated dependency updates
-# This configuration enables weekly dependency updates for Composer, npm, and GitHub Actions
+# This configuration enables weekly dependency updates for Composer and npm dependencies
 # Updates are grouped by ecosystem to reduce noise and make reviews more manageable
 
 version: 2
@@ -52,26 +52,3 @@ updates:
       prefix: "npm"
       include: "scope"
 
-  # GitHub Actions updates (if any workflow files exist)
-  - package-ecosystem: "github-actions"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "09:00"
-      timezone: "UTC"
-    groups:
-      # Group all GitHub Actions updates together
-      github-actions-dependencies:
-        patterns:
-          - "*"
-    open-pull-requests-limit: 5
-    reviewers:
-      - "malunem"
-    labels:
-      - "dependencies"
-      - "github-actions"
-      - "ci"
-    commit-message:
-      prefix: "github-actions"
-      include: "scope"
